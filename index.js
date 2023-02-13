@@ -1,6 +1,6 @@
 "use strict";
 console.log("%cSchool At Midnight🌚","font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px");
-console.log("%cReport any missed CSS or bugs to the github: ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px")
+console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisHard/school-at-midnight ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px")
 
 if (localStorage.getItem("darkmode") == null) {
     localStorage.setItem("darkmode","false");   
