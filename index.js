@@ -111,6 +111,11 @@ wZTANe {
 .editable {
     color: white !important;
 }
+
+.TisIWb .kKn9Nc:before {
+    background-color: var(--hover-gray) !important;
+}
+
 .CIy9F {
     background-color: var(--gray) !important;
 }
