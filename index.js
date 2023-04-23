@@ -1,9 +1,10 @@
 "use strict";
+
 console.log("%cSchool At Midnight🌚","font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px");
 console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisHard/school-at-midnight ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px")
 
 if (localStorage.getItem("darkmode") == null) {
-    localStorage.setItem("darkmode","false");   
+    localStorage.setItem("darkmode","false"); 
 }
 
 if (localStorage.getItem("themeSwitcherDimension") == null) {
@@ -11,12 +12,34 @@ if (localStorage.getItem("themeSwitcherDimension") == null) {
 }
 
 
-var darkmodestate = Boolean(localStorage.getItem("darkmode"));
+let darkmodestate = Boolean(localStorage.getItem("darkmode"));
 
-var style = document.createElement("style");
-style.innerHTML = `
+let buttonsDiv = document.createElement("div");
+buttonsDiv.setAttribute("class","buttonsDiv");
+buttonsDiv.innerHTML = `
+    <button class="settingsButton toggleButtons">Settings ⚙️</button>
+    <button class="darkSwitcher toggleButtons">Light Mode 🌞</button>
+`
 
-body, nav, .joJglb, .ETRkCe {
+sessionStorage.setItem("settingsOpen","false");
+
+document.body.insertBefore(buttonsDiv,document.body.firstChild);
+
+let button = document.querySelector(".darkSwitcher");
+let settingsButton = document.querySelector(".settingsButton");
+
+// setTimeout(() => {
+//     settingsButton.classList.add("transitionRightSettingsButton");
+// }, 200);
+
+// setTimeout(() => {
+//     button.classList.add("transitionRightDarkSwitcher");
+// }, 350);
+
+let darkModeStyle = document.createElement("style");
+darkModeStyle.setAttribute("class","darkMode");
+
+darkModeStyle.innerHTML = `body, nav, .joJglb, .ETRkCe {
     color: #fff;
     background-color: var(--gray);
 }
@@ -25,7 +48,7 @@ body, nav, .joJglb, .ETRkCe {
 }
 
 a {
-    color: aqua;
+    color: var(--neon-blue);
 }
 
 *, h2, p, .apFsO.onkcGd, .apFsO.onkcGd:visited, .K6Ovqd, .Evt7cb, .Evt7cb:visited, .WOPwXe, .ViCi4, .tLDEHd, .dDKhVc, .asQXV, .rpo4wf, .J1raN:hover, .EZrbnd, .IqJTee, .A6dC2c, .DShyMc-MTkwMDQyNzU2MzY0 .VBEdtc-Wvd9Cc:hover, .DShyMc-MTkwMDQyNzU2MzY0.MymH0d:hover .VBEdtc-Wvd9Cc, .DShyMc-MTkwMDQyNzU2MzY0 .MymH0d:hover .VBEdtc-Wvd9Cc, .NjE5zd, .DShyMc-AaTFfe.VnOHwf-Tvm9db, .DShyMc-AaTFfe .VnOHwf-Tvm9db, .DShyMc-AaTFfe.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTg0MjQ2MDIxMDky.VnOHwf-Tvm9db, .DShyMc-MTg0MjQ2MDIxMDky .VnOHwf-Tvm9db, .DShyMc-MTg0MjQ2MDIxMDky.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2.VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2 .VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2.VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2 .VnOHwf-Tvm9db, .DShyMc-MTg5OTc2MTkwMTI2.CNpREd .VnOHwf-Tvm9db, .xSP5ic, .Rq5Gcb, .ksaOtd, .DShyMc-MTcwNjk5NzM4Mjkx.VnOHwf-Tvm9db, .DShyMc-MTcwNjk5NzM4Mjkx .VnOHwf-Tvm9db, .DShyMc-MTcwNjk5NzM4Mjkx.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4.VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4 .VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4.VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4 .VnOHwf-Tvm9db, .DShyMc-MTYxNDkyMTI1MTg4.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTIzNjUwOTUwMjY5.VnOHwf-Tvm9db, .DShyMc-MTIzNjUwOTUwMjY5 .VnOHwf-Tvm9db, .DShyMc-MTIzNjUwOTUwMjY5.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTIzMDAxMzIxMDE1.VnOHwf-Tvm9db, .DShyMc-MTIzMDAxMzIxMDE1 .VnOHwf-Tvm9db, .DShyMc-MTIzMDAxMzIxMDE1.CNpREd .VnOHwf-Tvm9db, .DShyMc-MTIzMjUzMzg1OTU0 .VBEdtc-Wvd9Cc:hover, .DShyMc-MTIzMjUzMzg1OTU0.MymH0d:hover .VBEdtc-Wvd9Cc, .DShyMc-MTIzMjUzMzg1OTU0 .MymH0d:hover .VBEdtc-Wvd9Cc, .DShyMc-MTIzMjUzMzg1OTU0.VnOHwf-Tvm9db, .DShyMc-MTIzMjUzMzg1OTU0 .VnOHwf-Tvm9db, .DShyMc-MTIzMjUzMzg1OTU0.CNpREd .VnOHwf-Tvm9db {
@@ -43,7 +66,6 @@ wZTANe {
     box-shadow: none;
 }
 .MHxtic:hover, .ncFHed, .EHzcec, .MHxtic.ndcsBf, .ybOdnf.iWO5td, .uQ3ESd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf.boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf.idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf .boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf .idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf.boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf.idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf .boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf .idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover.j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover .j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf.boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf .boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf.boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf .boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover.j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover .j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover .idtp4e {
-    /* to do assignments */
     background: none;
     background-color: var(--gray);
     box-shadow: none;
@@ -85,7 +107,6 @@ wZTANe {
     color: inherit;
 }
 .lYU7F {
-    /* nice red */
     color: #2e7d32;
 }
 .hVNH5c, .ncFHed, .EHzcec, .joJglb.kLHn3 {
@@ -105,9 +126,12 @@ wZTANe {
 }
 
 .cnOaDb {
-    background-color: var(--gray) !important;
+    background-color: var(--hover-gray) !important;
 }
 
+.Erb9le:not(.RDPZE) .qmMNRc.y7OZL {
+    background-color: rgb(108 105 105)
+}
 .editable {
     color: white !important;
 }
@@ -117,7 +141,7 @@ wZTANe {
 }
 
 .CIy9F {
-    background-color: var(--gray) !important;
+    background-color: var(--hover-gray) !important;
 }
 
 .snByac {
@@ -164,6 +188,7 @@ ol:focus-within {
     background-color: var(--gray) !important;
 }
 
+
 [guidedhelpid="classworkTab"] {
     color: white !important;
 }
@@ -194,7 +219,7 @@ ol:focus-within {
 }
 
 c-wiz.SSPGKf {
-    background-color: rgba(15,15,15,0.6);
+    background-color: var(--gray);
     border-radius: 50px;
 }
 
@@ -206,13 +231,7 @@ div.EHzcec.eejsDc {
     color: white;
     font-weight: bold;
 }
-`
 
-style.setAttribute("id","darkModeStyle");
-
-var grayHover = document.createElement("style");
-
-grayHover.innerHTML = `
 .ZoT1D:hover.idtp4e {
     background-color: var(--hover-gray) !important;
 }
@@ -241,10 +260,30 @@ grayHover.innerHTML = `
     background-color: var(--hover-gray) !important;
 }
 
-.LlcfK {
+.zvzLKc .bFjUmb-Ysl7Fe, .Mupove .bFjUmb-Ysl7Fe, .UvHKof .bFjUmb-Ysl7Fe, .WFUiUb .bFjUmb-Ysl7Fe, .ee1HBc .bFjUmb-Ysl7Fe, .g2MItd .bFjUmb-Ysl7Fe, .Ag4wUb .bFjUmb-Ysl7Fe, .ZoT1D:focus-within.idtp4e {
     background-color: var(--hover-gray) !important;
 }
 
+.GWZ7yf {
+    box-shadow: var(--neon-blue) 0px 4px 6px, var(--neon-blue) 3px 4px 5px
+}
+
+.qhnNic {
+    box-shadow: var(--neon-blue) 0px 4px 6px, var(--neon-blue) 3px 4px 5px
+}
+
+.aSjeL.aSjeL td {
+    background: var(--hover-gray);
+}
+
+.TJtJXb td {
+    background-color: var(--hover-gray);
+}
+
+.DC55n td {
+    background-color: var(--gray);
+}
+ 
 a.tX9u1b:active {
     background-color: #1f1f1f;
 }
@@ -260,31 +299,48 @@ a.tX9u1b:hover {
 a.QgddUc .tX9u1b:focus {
     background-color: #1f1f1f;
 }
-`;
-grayHover.setAttribute("id","grayHover");
 
-let button = document.createElement("button");
-button.setAttribute("id","darkSwitcher");
-button.innerHTML = "Light Mode 🌞";
-document.body.appendChild(button);
+.RMrItf, .Kqfayb {
+    color: white;
+}
 
-let settings = document.createElement("button");
-settings.setAttribute("id","settingsButton");
-settings.innerHTML = "Settings ⚙️";
-document.body.appendChild(settings);
-sessionStorage.setItem("settingsOpen","false");
+.OK1tJe {
+    background-color: var(--hover-gray);
+}
+
+.z80M1.FwR7Pc {
+    background-color: var(--hover-gray);
+}
+
+.UjXaMc {
+    color: white;
+}
+
+.jlfrG:before, .jlfrG:after {
+    background: var(--hover-gray);
+}
+
+.lnAGpc {
+    background-color: var(--hover-gray);
+}
+
+.TdC1bb, .feojCc {
+    background-color: var(--gray);
+}
+
+}`
+
 
 function toggle() {
     if (darkmodestate) {
-        document.querySelector("#darkModeStyle").remove();
-        document.querySelector("#grayHover").remove();
+        darkModeStyle.remove();
         button.innerHTML = "Dark Mode 🌚"
 
         localStorage.setItem("darkmode","false");
         darkmodestate = false;
     } else if (!darkmodestate) {
-        document.body.appendChild(style);
-        document.body.appendChild(grayHover);
+        document.body.insertBefore(darkModeStyle,document.body.firstChild);
+
         button.innerHTML = "Light Mode 🌞";
 
         localStorage.setItem("darkmode","true");
@@ -309,46 +365,24 @@ let dm = localStorage.getItem("darkmode");
         darkmodestate = false;
         button.innerHTML = "Dark Mode 🌚";
     } else if (dm == "true") {
-        dm = true;
+        darkmodestate = true;
         button.innerHTML = "Light Mode 🌞";
-        document.body.appendChild(style);
-        document.body.appendChild(grayHover);
+        document.body.insertBefore(darkModeStyle,document.body.firstChild);
+
         console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px;")
     }
 
-document.body.insertBefore(button, document.body.firstChild);
-document.body.insertBefore(settings,document.body.firstChild);
-
-//var observer = new MutationObserver(function (mutations, me) {
-//    var div = document.querySelector("#yDmH0d > div.JPdR6b.hVNH5c.qjTEB > div > div");
-//    if (div) {
-//        var span = document.createElement("span")
-//        span.className = "z80M1 FeRvI FwR7Pc";
-//        span.innerHTML = `
-//        <div class="aBBjbd MbhUzd" jsname="ksKsZd" style="top: 21px; left: 64px; width: 239px; height: 239px;"></div><div class="uyYuVb oJeWuf"><div class="jO7h3c">Dark Mode Settings ⚙️</div></div>
-//        `;
-//        div.insertBefore(span, div.lastChild)
-//        me.disconnect(); //STOP OBSERVING
-//        return;
-//    }
-//});
-
-//START OBSERVING
-//observer.observe(document, {
-//    childList: true,
-//    subtree: true
-//});
 let settingsModal = document.createElement("div");
 settingsModal.setAttribute("style","overflow: auto; width: 100%; height: 100%; background-color: rgba(51,51,51,0.5); left: 0; top: 0; position: fixed; z-index: 999999999; display: grid;");
 settingsModal.setAttribute("id","settingsOverlay")
 settingsModal.innerHTML = `
 <div id="settingsModal">
-    <h1 id="settingsLabel">Settings</h1>
+    <h1 id="settingsHeader">Settings</h1>
     <button id="settingsClose"">×</button>
     <div class="line"></div>
     <h1 id="themeSwitcherLabel" class="settingsLabel">Theme Switcher Size</h1>
-    <input id="widthTextBox" class="textbox" placeholder="Width (Max 99)" type="text">
-    <input id="heightTextBox" class="textbox" placeholder="Height (Max 99)" type="text">
+    <input id="widthTextBox" class="textbox" placeholder="Width (Max <999)" type="text">
+    <input id="heightTextBox" class="textbox" placeholder="Height (Max <999)" type="text">
     <button class="setDefault">Set To Default</button>
     <h1 id="settingsButtonLabel" class="settingsLabel">Settings Button Size</h1>    
     </div>
@@ -384,7 +418,7 @@ document.querySelector("#settingsOverlay").onclick = (e) => {
     }
 }
 
-settings.onclick = settingsToggle;
+settingsButton.onclick = settingsToggle;
 
 chrome.runtime.onMessage.addListener(function (response, sendResponse) {
     if (response.action == "toggle_settings") {
