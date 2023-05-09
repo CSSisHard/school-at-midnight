@@ -4,7 +4,7 @@
     --hover-gray: rgb(40, 40, 40);
 }
 
-.toggleButtons {
+.toggle-buttons {
     border: .0625rem solid;
     border-radius: 500px;
     background-color: var(--gray);
@@ -18,23 +18,28 @@
     transition: background-color .2s ease-in-out, opacity .2s ease-in-out,box-shadow .2s ease-in-out,border-color .2s ease-in-out, transform 1s ease-in-out;;
     border-color: rgb(4,217,255);
     cursor: pointer;
+    pointer-events: all;
 }
 
-.buttonsDiv {
+.buttons-div-container {
+    display: grid;
+    width: 100%;
+    height: 100svw;
+    z-index: 999;
+    place-content: flex-end;
+    place-items: flex-end;
+    pointer-events: none;
+    position: absolute;
+}
+
+.buttons-div {
     position: fixed;
-    top: 92%;
-    left: 89%;
-    display: block;
+    bottom: 1%;
+    right: 1%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     z-index: 999999999999999999999;
-}
-
-.buttonsDiv > * {
-    display: block;
-    margin-top: 10px;
-}
-
-.buttonsDiv > *:first-child {
-    margin-top: 0px;
 }
 
 /* .darkSwitcher {
@@ -44,7 +49,7 @@
     transform: translateX(500%) translateY(-150%);
 } */
 
-.darkSwitcher:hover, .settingsButton:hover {
+.dark-switcher:hover, .settings-button:hover {
     background-color: var(--hover-gray);
     border-color: rgb(217,42,55);
     box-shadow: 6px 6px 6px rgb(217,42,55), 6px 6px 6px rgb(217,42,55);
@@ -255,53 +260,51 @@ a.tX9u1b {
     opacity: 0 !important;
 }
 
-#settingsOverlay {
-    overflow: auto; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(51,51,51,0.5); 
-    left: 0; 
-    top: 0; 
-    position: fixed; 
-    z-index: 999999999; 
-    display: grid;
-    transition: opacity 200ms ease-in-out;
-    opacity: 0;
-    pointer-events: none;
-}
-
-#settingsModal {
+#settings-dialog {
     width: 50%;
     height: 35%;
-    position: fixed;
-    overflow: auto;
-    place-self: center;
-    border-radius: 20px;
-    background-color: var(--gray);
-    transform: scale(0%);
-    transition: transform 200ms ease-in-out;
-    z-index: 99999999999999999999999999999999999999999999999999999999999999;
+    background: transparent;
+    border: none;
 }
 
-#settingsHeader {
+#settings-modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border-radius: 20px;
+    background-color: rgb(201, 201, 201);
+    transform: scale(0);
+    transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+#settings-dialog::backdrop {
+    background-color: rgba(51,51,51,0.5);
+}
+
+#settings-header {
     font-size: 1.8rem;
     display: inline-block;
     margin-top: 10px;
     margin-left: 5px;
     user-select: none;
     z-index: inherit;
+    color: black;
+    transition: color .5s ease-in-out;
 }
 
 .line {
     width: 100%;
     height: 2%;
-    background-color: white;
+    background-color: black;
     z-index: inherit;
     position: sticky;
     top: 3em;
+    border-radius: 50px;
+    transition: background-color .5s ease-in-out;
 }
 
-.settingsLabel {
+.settings-label {
     color: red;
     font-weight: bold;
     font-size: 1.5rem;
@@ -316,26 +319,28 @@ a.tX9u1b {
     color: black;
     display: inline-block;
     border-radius: 25px;
-    border-color: rgb(4,217,255);
-    box-shadow: 0 1px 3px rgb(4,217,255 ), 0 1px 2px rgb(4,217,255);
+    border-color: var(--neon-blue);
+    box-shadow: 0 1px 3px var(--neon-blue), 0 1px 2px var(--neon-blue);
     z-index: inherit;
     text-align: center;
 }
 
-#settingsClose {
+#settings-close {
     position: sticky;
     font-size: 1.5rem;
     left: 95%;
     top: 2%;
-    background-color: gray;
+    background-color: rgb(114, 114, 114);
     border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
     z-index: inherit;
+    color: black;
+    border: none;
 }
 
-.setDefault {
+.set-default {
     border-radius: 50px;
     color: black;
     background-color: aqua;
@@ -347,5 +352,5 @@ a.tX9u1b {
 }
 
 .scaleup {
-    transform: scale(100%) !important;
+    transform: scale(1) !important;
 }

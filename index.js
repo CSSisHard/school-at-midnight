@@ -12,21 +12,23 @@ if (localStorage.getItem("themeSwitcherDimension") == null) {
 }
 
 
-let darkmodestate = Boolean(localStorage.getItem("darkmode"));
+let darkModeState = Boolean(localStorage.getItem("darkmode"));
 
-let buttonsDiv = document.createElement("div");
-buttonsDiv.setAttribute("class","buttonsDiv");
-buttonsDiv.innerHTML = `
-    <button class="settingsButton toggleButtons">Settings ⚙️</button>
-    <button class="darkSwitcher toggleButtons">Light Mode 🌞</button>
+let buttonsDivContainer = document.createElement("div");
+buttonsDivContainer.setAttribute("class","buttons-div-container");
+buttonsDivContainer.innerHTML = `
+<div class="buttons-div">
+    <button class="settings-button toggle-buttons" data-open-modal>Settings ⚙️</button>
+    <button class="dark-switcher toggle-buttons">Light Mode 🌞</button>
+<div>
 `
 
-sessionStorage.setItem("settingsOpen","false");
+sessionStorage.setItem("settingsopen","false");
 
-document.body.insertBefore(buttonsDiv,document.body.firstChild);
+document.body.insertBefore(buttonsDivContainer,document.body.firstChild);
 
-let button = document.querySelector(".darkSwitcher");
-let settingsButton = document.querySelector(".settingsButton");
+let button = document.querySelector(".dark-switcher");
+let settingsButton = document.querySelector(".settings-button");
 
 // setTimeout(() => {
 //     settingsButton.classList.add("transitionRightSettingsButton");
@@ -37,7 +39,7 @@ let settingsButton = document.querySelector(".settingsButton");
 // }, 350);
 
 let darkModeStyle = document.createElement("style");
-darkModeStyle.setAttribute("class","darkMode");
+darkModeStyle.setAttribute("class","dark-mode");
 
 darkModeStyle.innerHTML = `body, nav, .joJglb, .ETRkCe {
     color: #fff;
@@ -328,23 +330,42 @@ a.QgddUc .tX9u1b:focus {
     background-color: var(--gray);
 }
 
+#settings-modal {
+    background-color: var(--gray);
+}
+
+#settings-header {
+    color: white;
+}
+
+.line {
+    background-color: rgb(255,255,255);
+}
+
+#settings-close {
+    color: white;
+}
+
+.WagS8 {
+    background-color: var(--gray);
+}
 }`
 
 
 function toggle() {
-    if (darkmodestate) {
+    if (darkModeState) {
         darkModeStyle.remove();
         button.innerHTML = "Dark Mode 🌚"
 
         localStorage.setItem("darkmode","false");
-        darkmodestate = false;
-    } else if (!darkmodestate) {
+        darkModeState = false;
+    } else if (!darkModeState) {
         document.body.insertBefore(darkModeStyle,document.body.firstChild);
 
         button.innerHTML = "Light Mode 🌞";
 
         localStorage.setItem("darkmode","true");
-        darkmodestate = true;
+        darkModeState = true;
     }
 }
 
@@ -360,63 +381,69 @@ document.addEventListener("keydown",(key) => {
     }
 )
 
-let dm = localStorage.getItem("darkmode");
-    if (dm == "false") {
-        darkmodestate = false;
+let darkMode = localStorage.getItem("darkmode");
+    if (darkMode == "false") {
+        darkModeState = false;
         button.innerHTML = "Dark Mode 🌚";
-    } else if (dm == "true") {
-        darkmodestate = true;
+    } else if (darkMode == "true") {
+        darkModeState = true;
         button.innerHTML = "Light Mode 🌞";
         document.body.insertBefore(darkModeStyle,document.body.firstChild);
 
         console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px;")
     }
 
-let settingsModal = document.createElement("div");
-settingsModal.setAttribute("style","overflow: auto; width: 100%; height: 100%; background-color: rgba(51,51,51,0.5); left: 0; top: 0; position: fixed; z-index: 999999999; display: grid;");
-settingsModal.setAttribute("id","settingsOverlay")
-settingsModal.innerHTML = `
-<div id="settingsModal">
-    <h1 id="settingsHeader">Settings</h1>
-    <button id="settingsClose"">×</button>
+let dialogModal = document.createElement("dialog");
+dialogModal.setAttribute("id","settings-dialog");
+dialogModal.innerHTML = `
+<div id="settings-modal">
+    <h1 id="settings-header">Settings</h1>
+    <button id="settings-close">×</button>
     <div class="line"></div>
-    <h1 id="themeSwitcherLabel" class="settingsLabel">Theme Switcher Size</h1>
-    <input id="widthTextBox" class="textbox" placeholder="Width (Max <999)" type="text">
-    <input id="heightTextBox" class="textbox" placeholder="Height (Max <999)" type="text">
-    <button class="setDefault">Set To Default</button>
-    <h1 id="settingsButtonLabel" class="settingsLabel">Settings Button Size</h1>    
-    </div>
-</div>`;
-document.body.appendChild(settingsModal);
+    <h1 id="theme-switcher-label" class="settings-label">Theme Switcher Size</h1>
+    <input id="width-text-box" class="textbox" placeholder="Width (Max <999)" type="text">
+    <input id="height-text-box" class="textbox" placeholder="Height (Max <999)" type="text">
+    <button class="set-default">Set To Default</button>
+    <h1 id="settings-button-label" class="settings-label">Settings Button Size</h1>    
+</div>
+`;
+document.body.appendChild(dialogModal);
 
 function closeSettings() {
-    sessionStorage.setItem("settingsOpen","false");
-    document.querySelector("#settingsOverlay").classList.remove("fadein");
-    document.querySelector("#settingsOverlay").style.pointerEvents = "none";
-    document.querySelector("#settingsModal").classList.remove("scaleup");
+    sessionStorage.setItem("settingsopen","false");
+    document.querySelector("#settings-modal").classList.toggle("scaleup");
+    document.querySelector("#settings-modal").classList.toggle("fadein");
+    
+    setTimeout(() => {
+       dialogModal.close();
+    }, 200);
+    
     document.body.style.overflow = "auto";
 }
 
 function openSettings() {
-    sessionStorage.setItem("settingsOpen","true");
-    document.querySelector("#settingsOverlay").classList.add("fadein");
-    document.querySelector("#settingsOverlay").style.pointerEvents = "auto";
-    document.querySelector("#settingsModal").classList.add("scaleup");
-    document.body.style.overflow = "hidden";    
+    sessionStorage.setItem("settingsopen","true");
+    dialogModal.showModal();
+    
+    document.querySelector("#settings-modal").classList.toggle("scaleup");
+    document.querySelector("#settings-modal").classList.toggle("fadein");
+     
+    document.body.style.overflow = "hidden";
 }
 function settingsToggle() {
-    if (sessionStorage.getItem("settingsOpen") == String(true)) {
+    if (sessionStorage.getItem("settingsopen") == String(true)) {
         closeSettings();
-    } else if (sessionStorage.getItem("settingsOpen") == String(false)) {
+    } else if (sessionStorage.getItem("settingsopen") == String(false)) {
         openSettings();
     }
 }
 
-document.querySelector("#settingsOverlay").onclick = (e) => {
-    if (sessionStorage.getItem("settingsOpen") == "true" && e.target == document.querySelector("div#settingsOverlay") || sessionStorage.getItem("settingsOpen") == "true" && e.target == document.querySelector("button#settingsClose")) {
-        closeSettings();
+dialogModal.addEventListener(("click"), e => {
+    let dialogDimensions = document.querySelector("#settings-modal").getBoundingClientRect();
+    if (e.clientX < dialogDimensions.left || e.clientX > dialogDimensions.right || e.clientY < dialogDimensions.top || e.clientY > dialogDimensions.bottom || e.target == document.querySelector("button#settings-close")) {
+        settingsToggle();
     }
-}
+})
 
 settingsButton.onclick = settingsToggle;
 

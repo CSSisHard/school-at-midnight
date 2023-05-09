@@ -1,7 +1,7 @@
 {
     "name": "School At Midnight",
     "version": "3.0",
-    "description": "Adds dark mode to google classroom. To toggle dark mode, click the button on the bottom right corner, or press Alt + Shift.",
+    "description": "Adds dark mode to google classroom",
     "manifest_version": 3,
     "icons": {
         "16": "/Icons/16x16.png",
