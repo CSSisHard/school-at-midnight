@@ -20,7 +20,7 @@ buttonsDivContainer.innerHTML = `
 <div class="buttons-div">
     <button class="settings-button toggle-buttons" data-open-modal>Settings ⚙️</button>
     <button class="dark-switcher toggle-buttons">Light Mode 🌞</button>
-<div>
+</div>
 `
 
 sessionStorage.setItem("settingsopen","false");
@@ -349,8 +349,16 @@ a.QgddUc .tX9u1b:focus {
 .WagS8 {
     background-color: var(--gray);
 }
+
+.ETRkCe {
+    box-shadow: 5px 4px 4px 0 rgba(255,255,255,.3), 0 8px 12px 6px rgba(255,255,255,.15);
+}
 }`
 
+function transparent() {
+    buttonsDivContainer.style.setProperty("background-color","transparent");
+    buttonsDivContainer.removeEventListener("transitionend",transparent,true);
+}
 
 function toggle() {
     if (darkModeState) {
@@ -359,6 +367,9 @@ function toggle() {
 
         localStorage.setItem("darkmode","false");
         darkModeState = false;
+
+        buttonsDivContainer.style.setProperty("background-color","white");
+        buttonsDivContainer.addEventListener("transitionend",transparent);
     } else if (!darkModeState) {
         document.body.insertBefore(darkModeStyle,document.body.firstChild);
 
@@ -366,6 +377,9 @@ function toggle() {
 
         localStorage.setItem("darkmode","true");
         darkModeState = true;
+
+        buttonsDivContainer.style.setProperty("background-color","black");
+        buttonsDivContainer.addEventListener("transitionend",transparent);
     }
 }
 
@@ -404,31 +418,35 @@ dialogModal.innerHTML = `
     <input id="width-text-box" class="textbox" placeholder="Width (Max <999)" type="text">
     <input id="height-text-box" class="textbox" placeholder="Height (Max <999)" type="text">
     <button class="set-default">Set To Default</button>
-    <h1 id="settings-button-label" class="settings-label">Settings Button Size</h1>    
+    <h1 id="settings-button-label" class="settings-label">Settings Button Size</h1>
 </div>
 `;
 document.body.appendChild(dialogModal);
 
+let settingsModal = document.querySelector("#settings-modal");
+
 function closeSettings() {
-    sessionStorage.setItem("settingsopen","false");
-    document.querySelector("#settings-modal").classList.toggle("scaleup");
-    document.querySelector("#settings-modal").classList.toggle("fadein");
     
+    sessionStorage.setItem("settingsopen","false");
+    settingsModal.classList.remove("scaleup");
+    settingsModal.classList.remove("fadein");
+    settingsModal
+
     setTimeout(() => {
        dialogModal.close();
     }, 200);
-    
-    document.body.style.overflow = "auto";
+
+    document.body.classList.remove("set-scrollbar-toggle");
 }
 
 function openSettings() {
     sessionStorage.setItem("settingsopen","true");
     dialogModal.showModal();
     
-    document.querySelector("#settings-modal").classList.toggle("scaleup");
-    document.querySelector("#settings-modal").classList.toggle("fadein");
+    document.querySelector("#settings-modal").classList.add("scaleup");
+    document.querySelector("#settings-modal").classList.add("fadein");
      
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("set-scrollbar-toggle");
 }
 function settingsToggle() {
     if (sessionStorage.getItem("settingsopen") == String(true)) {
