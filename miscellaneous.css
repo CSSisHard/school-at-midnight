@@ -41,6 +41,12 @@
     flex-direction: column;
     gap: 10px;
     z-index: 2000;
+    padding: 10px;
+    background-color: #e3e2e2;
+    transition: background-color .5s ease-in-out;
+    border-radius: 1rem;
+    border-color: var(--neon-blue);
+    border-style: double;
 }
 
 .dark-switcher:hover, .settings-button:hover {

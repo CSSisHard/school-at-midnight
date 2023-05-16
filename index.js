@@ -353,6 +353,11 @@ a.QgddUc .tX9u1b:focus {
 .ETRkCe {
     box-shadow: 5px 4px 4px 0 rgba(255,255,255,.3), 0 8px 12px 6px rgba(255,255,255,.15);
 }
+
+.buttons-div {
+    background-color: #222222;
+}
+
 }`
 
 function transparent() {
@@ -360,7 +365,7 @@ function transparent() {
     buttonsDivContainer.removeEventListener("transitionend",transparent,true);
 }
 
-function toggle() {
+function toggleTheme() {
     if (darkModeState) {
         darkModeStyle.remove();
         button.innerHTML = "Dark Mode 🌚"
@@ -383,11 +388,11 @@ function toggle() {
     }
 }
 
-button.onclick = toggle
+button.onclick = toggleTheme
 
 document.addEventListener("keydown",(key) => {
     if (key.ctrlKey && key.altKey && key.key == "t") {
-        toggle();
+        toggleTheme();
     }
     else if (key.ctrlKey && key.altKey && key.key == "s") {
         settingsToggle();
