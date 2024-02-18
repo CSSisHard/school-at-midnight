@@ -1,6 +1,6 @@
 {
     "name": "School At Midnight",
-    "version": "3.0",
+    "version": "0.1",
     "description": "Adds dark mode to google classroom",
     "manifest_version": 3,
     "icons": {
@@ -8,9 +8,6 @@
         "48": "/Icons/48x48.png",
         "128": "/Icons/128x128.png",
         "256": "/Icons/256x256.png"
-    },
-    "action": {
-        "default_popup": "/popup/popup.html"
     },
     "content_scripts": [
         {

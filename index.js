@@ -3,47 +3,53 @@
 console.log("%cSchool At Midnight🌚","font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px");
 console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisHard/school-at-midnight ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px")
 
-if (localStorage.getItem("darkmode") == null) {
-    localStorage.setItem("darkmode","false"); 
+let darkModeState = localStorage.getItem("darkModeState");
+
+if (darkModeState === null) {
+    darkModeState = "false";
+    localStorage.setItem("darkModeState", "false");
 }
 
-if (localStorage.getItem("themeSwitcherDimension") == null) {
-    localStorage.setItem("themeSwitcherDimensions","{width: 150,height: 27}");
-}
+let themeSwitcherContainer = document.querySelector(".Mtd4hb.QRiHXd");
+let themeSwitcher = document.createElement("button");
+themeSwitcher.setAttribute("class", "theme-switcher");
+themeSwitcher.innerHTML = `
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg class="sun-icon theme-switcher-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+   <g id="SVGRepo_iconCarrier">
+      <path d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+   </g>
+</svg>
 
-let darkModeState = Boolean(localStorage.getItem("darkmode"));
-
-let buttonsDivContainer = document.createElement("div");
-buttonsDivContainer.setAttribute("class","buttons-div-container");
-buttonsDivContainer.innerHTML = `
-<div class="buttons-div">
-    <button class="settings-button toggle-buttons" data-open-modal>Settings ⚙️</button>
-    <button class="dark-switcher toggle-buttons">Light Mode 🌞</button>
-</div>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg class="moon-icon theme-switcher-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000">
+   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+   <g id="SVGRepo_iconCarrier">
+      <path d="M3.32031 11.6835C3.32031 16.6541 7.34975 20.6835 12.3203 20.6835C16.1075 20.6835 19.3483 18.3443 20.6768 15.032C19.6402 15.4486 18.5059 15.6834 17.3203 15.6834C12.3497 15.6834 8.32031 11.654 8.32031 6.68342C8.32031 5.50338 8.55165 4.36259 8.96453 3.32996C5.65605 4.66028 3.32031 7.89912 3.32031 11.6835Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+   </g>
+</svg>
 `
+themeSwitcherContainer.append(themeSwitcher);
 
-sessionStorage.setItem("settingsopen","false");
+let sunIcon = document.querySelector(".sun-icon");
+let moonIcon = document.querySelector(".moon-icon");
 
-document.body.insertBefore(buttonsDivContainer,document.body.firstChild);
-
-let button = document.querySelector(".dark-switcher");
-let settingsButton = document.querySelector(".settings-button");
-
-// setTimeout(() => {
-//     settingsButton.classList.add("transitionRightSettingsButton");
-// }, 200);
-
-// setTimeout(() => {
-//     button.classList.add("transitionRightDarkSwitcher");
-// }, 350);
+let overlay = document.createElement("div");
+overlay.setAttribute("class", "overlay");
+document.body.append(overlay);
 
 let darkModeStyle = document.createElement("style");
 darkModeStyle.setAttribute("class","dark-mode");
 
 darkModeStyle.innerHTML = `body, nav, .joJglb, .ETRkCe {
     color: #fff;
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 .lXuxY .u73Apc {
     border-color: #373737;
@@ -62,18 +68,22 @@ wZTANe {
     color: white !important;    
 }
 
+.rpo4wf-J3yWx {
+    color: white;
+}
+
 .Aopndd, .d4Fe0d, .GWZ7yf, .hgjBDc, .Xi8cpb:hover .LlcfK, .JPdR6b, .gHz6xd.rZXyy:not(.kKn9Nc):not(.u0dx8e):hover, .I7OXgf, .DShyMc-MTc0OTQxMzAwMzk3.bFjUmb-Ysl7Fe, .DShyMc-MTc0OTQxMzAwMzk3 .bFjUmb-Ysl7Fe, .DShyMc-MTM5ODA0NDQ5MjUz.bFjUmb-Ysl7Fe, .DShyMc-MTM5ODA0NDQ5MjUz .bFjUmb-Ysl7Fe, .DShyMc-MTIzMDAxMzIxMDE1.bFjUmb-Ysl7Fe, .DShyMc-MTIzMDAxMzIxMDE1 .bFjUmb-Ysl7Fe, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ).ndcsBf.boxOzd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ).ndcsBf.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ).ndcsBf .boxOzd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ).ndcsBf .idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D.ndcsBf.boxOzd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D.ndcsBf.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D.ndcsBf .boxOzd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D.ndcsBf .idtp4e {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
     border: .0625rem solid #373737;
     box-shadow: none;
 }
 .MHxtic:hover, .ncFHed, .EHzcec, .MHxtic.ndcsBf, .ybOdnf.iWO5td, .uQ3ESd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf.boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf.idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf .boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .tUJKGd:not(.xp2dJ).ndcsBf .idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf.boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf.idtp4e, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf .boxOzd, .DShyMc-MTg0MjQ2MDIxMDky .ZoT1D.ndcsBf .idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover.j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover.idtp4e, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover .j6KDAd, .DShyMc-MTIzMDAxMzIxMDE1 .ZoT1D:hover .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf.boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf .boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ).ndcsBf .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf.boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf .boxOzd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D.ndcsBf .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .tUJKGd:not(.xp2dJ):not(.rZXyy):hover .idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover.j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover.idtp4e, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover .j6KDAd, .DShyMc-MTg0MTM1MDc2OTI0 .ZoT1D:hover .idtp4e {
     background: none;
-    background-color: var(--gray);
+    background-color: var(--background-dark);
     box-shadow: none;
 }
 .DShyMc-MTg0MjQ2MDIxMDky.bFjUmb-Ysl7Fe, .DShyMc-MTg0MjQ2MDIxMDky .bFjUmb-Ysl7Fe {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 .oBSRLe, .Lzdwhd-BrZSOd, .lziZub, .lziZub:visited {
     color: #8d8d8d;
@@ -127,8 +137,12 @@ wZTANe {
     background-color: #4242425a;
 }
 
-.cnOaDb {
-    background-color: var(--hover-gray) !important;
+div.cnOaDb.I9OJHe {
+    background-color: var(--hover-dark);
+}
+
+div.cnOaDb.I9OJHe:not(.vTcY1d) {
+    border-radius: 100px;
 }
 
 .Erb9le:not(.RDPZE) .qmMNRc.y7OZL {
@@ -139,11 +153,11 @@ wZTANe {
 }
 
 .TisIWb .kKn9Nc:before {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .CIy9F {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .snByac {
@@ -155,27 +169,27 @@ wZTANe {
 }
 
 ul, ol {
-    background-color: var(--gray) !important
+    background-color: var(--background-dark) !important
 }
 
 ul:focus {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 ol:focus {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 ul:focus-within {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 ol:focus-within {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 .lGIiYb {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 .google-material-icons {
@@ -187,7 +201,7 @@ ol:focus-within {
 }
 
 [jsname="YPqjbf"] {
-    background-color: var(--gray) !important;
+    background-color: var(--background-dark) !important;
 }
 
 
@@ -204,7 +218,7 @@ ol:focus-within {
 }
 
 .IzVHde {
-    background-color: var(--gray)
+    background-color: var(--background-dark)
 }
 
 .UvHKof .VnOHwf-Tvm9db {
@@ -212,16 +226,16 @@ ol:focus-within {
 }
 
 .TisIWb .kKn9Nc {
-    background-color: var(--hover-gray) !important;
-    border-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
+    border-color: var(--hover-dark) !important;
 }
 
 .S3aLQd .bFjUmb-Ysl7Fe {
-	background-color: var(--hover-gray) !important;
+	background-color: var(--hover-dark) !important;
 }
 
 c-wiz.SSPGKf {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
     border-radius: 50px;
 }
 
@@ -235,35 +249,35 @@ div.EHzcec.eejsDc {
 }
 
 .ZoT1D:hover.idtp4e {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .qk0lee:focus:after {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .S3aLQd .UISY8d-Ysl7Fe:hover {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .S3aLQd .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .UvHKof .UISY8d-Ysl7Fe:hover {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .UvHKof .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .zvzLKc .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .zvzLKc .bFjUmb-Ysl7Fe, .Mupove .bFjUmb-Ysl7Fe, .UvHKof .bFjUmb-Ysl7Fe, .WFUiUb .bFjUmb-Ysl7Fe, .ee1HBc .bFjUmb-Ysl7Fe, .g2MItd .bFjUmb-Ysl7Fe, .Ag4wUb .bFjUmb-Ysl7Fe, .ZoT1D:focus-within.idtp4e {
-    background-color: var(--hover-gray) !important;
+    background-color: var(--hover-dark) !important;
 }
 
 .GWZ7yf {
@@ -275,15 +289,15 @@ div.EHzcec.eejsDc {
 }
 
 .aSjeL.aSjeL td {
-    background: var(--hover-gray);
+    background: var(--hover-dark);
 }
 
 .TJtJXb td {
-    background-color: var(--hover-gray);
+    background-color: var(--hover-dark);
 }
 
 .DC55n td {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
  
 a.tX9u1b:active {
@@ -307,11 +321,11 @@ a.QgddUc .tX9u1b:focus {
 }
 
 .OK1tJe {
-    background-color: var(--hover-gray);
+    background-color: var(--hover-dark);
 }
 
 .z80M1.FwR7Pc {
-    background-color: var(--hover-gray);
+    background-color: var(--hover-dark);
 }
 
 .UjXaMc {
@@ -319,160 +333,123 @@ a.QgddUc .tX9u1b:focus {
 }
 
 .jlfrG:before, .jlfrG:after {
-    background: var(--hover-gray);
+    background: var(--hover-dark);
 }
 
 .lnAGpc {
-    background-color: var(--hover-gray);
+    background-color: var(--hover-dark);
 }
 
 .TdC1bb, .feojCc {
-    background-color: var(--gray);
-}
-
-#settings-modal {
-    background-color: var(--gray);
-}
-
-#settings-header {
-    color: white;
-}
-
-.line {
-    background-color: rgb(255,255,255);
-}
-
-#settings-close {
-    color: white;
+    background-color: var(--background-dark);
 }
 
 .WagS8 {
-    background-color: var(--gray);
+    background-color: var(--background-dark);
 }
 
 .ETRkCe {
     box-shadow: 5px 4px 4px 0 rgba(255,255,255,.3), 0 8px 12px 6px rgba(255,255,255,.15);
 }
 
-.buttons-div {
-    background-color: #222222;
+.KEDCCd {
+    background-color: var(--background-dark) !important;
+}
+
+.Tabkde .OX4Vcb {
+    background-color: var(--background-dark) !important;
+}
+
+.EY8ABd .VfPpkd-z59Tgd {
+    background-color: var(--hover-dark) !important;
+}
+
+.theme-switcher {
+    background-color: var(--background-dark) !important;
+}
+
+.theme-switcher:hover {
+    background-color: var(--hover-dark) !important;
+}
+
+.gb_Mc .gb_Vd.gb_re button:hover svg, .gb_Vd button:hover svg, .gb_d:hover {
+    background-color: var(--hover-dark) !important;
+}
+
+.VfPpkd-Bz112c-LgbsSe.yHy1rc.eT1oJ.mN1ivc.sEZiv.TYHMlb.oxacD:hover, .VfPpkd-Bz112c-LgbsSe.yHy1rc.eT1oJ.mN1ivc.sEZiv.TYHMlb.oxacD:focus {
+    background-color: var(--hover-dark) !important;
+    border-radius: 50%;
+}
+
+div.XfQwid.lziZub.xd70xe.n0p5v.V8apv {
+    background-color: var(--hover-dark);
+}
+
+.VfPpkd-kBDsod rect, .VfPpkd-kBDsod path, .VfPpkd-kBDsod polygon  {
+    color: var(--neon-blue);
 }
 
 }`
 
-function transparent() {
-    buttonsDivContainer.style.setProperty("background-color","transparent");
-    buttonsDivContainer.removeEventListener("transitionend",transparent,true);
+function changeTheme(theme) {
+    if (theme == "Dark") {
+        document.body.insertBefore(darkModeStyle,document.body.firstChild);
+        sunIcon.style.setProperty("display", "none");
+        moonIcon.style.setProperty("display", "block");
+    } else if (theme == "Light") {
+        darkModeStyle.remove();
+        sunIcon.style.setProperty("display", "block");
+        moonIcon.style.setProperty("display", "none");
+    }
+
+    overlay.style.setProperty("background-color","transparent");
+    overlay.style.setProperty("pointer-events", "none");
+    overlay.removeEventListener("transitionend",changeTheme,true);
+}
+
+function toggleValue() {
+    if (darkModeState === String(true)) {
+        darkModeState = "false";
+    } else if (darkModeState === String(false)) {
+        darkModeState = "true";
+    }
+
+    localStorage.setItem("darkModeState", String(darkModeState));
 }
 
 function toggleTheme() {
-    if (darkModeState) {
-        darkModeStyle.remove();
-        button.innerHTML = "Dark Mode 🌚"
-
-        localStorage.setItem("darkmode","false");
-        darkModeState = false;
-
-        buttonsDivContainer.style.setProperty("background-color","white");
-        buttonsDivContainer.addEventListener("transitionend",transparent);
-    } else if (!darkModeState) {
-        document.body.insertBefore(darkModeStyle,document.body.firstChild);
-
-        button.innerHTML = "Light Mode 🌞";
-
-        localStorage.setItem("darkmode","true");
-        darkModeState = true;
-
-        buttonsDivContainer.style.setProperty("background-color","black");
-        buttonsDivContainer.addEventListener("transitionend",transparent);
+    if (darkModeState === String(true)) {
+        toggleValue()
+        overlay.style.setProperty("background-color","white");
+        overlay.style.setProperty("pointer-events", "all");
+        overlay.addEventListener("transitionend",() => {
+            changeTheme("Light");
+        });
+    } else if (darkModeState === String(false)) {
+        toggleValue()
+        overlay.style.setProperty("background-color","black");
+        overlay.style.setProperty("pointer-events", "all");
+        overlay.addEventListener("transitionend",() => {
+            changeTheme("Dark");
+        });
     }
 }
 
-button.onclick = toggleTheme
+themeSwitcher.onclick = toggleTheme
 
 document.addEventListener("keydown",(key) => {
     if (key.ctrlKey && key.altKey && key.key == "t") {
         toggleTheme();
     }
-    else if (key.ctrlKey && key.altKey && key.key == "s") {
-        settingsToggle();
-        }
-    }
-)
-
-let darkMode = localStorage.getItem("darkmode");
-    if (darkMode == "false") {
-        darkModeState = false;
-        button.innerHTML = "Dark Mode 🌚";
-    } else if (darkMode == "true") {
-        darkModeState = true;
-        button.innerHTML = "Light Mode 🌞";
-        document.body.insertBefore(darkModeStyle,document.body.firstChild);
-
-        console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px;")
-    }
-
-let dialogModal = document.createElement("dialog");
-dialogModal.setAttribute("id","settings-dialog");
-dialogModal.innerHTML = `
-<div id="settings-modal">
-    <h1 id="settings-header">Settings</h1>
-    <button id="settings-close">×</button>
-    <div class="line"></div>
-    <h1 id="theme-switcher-label" class="settings-label">Theme Switcher Size</h1>
-    <input id="width-text-box" class="textbox" placeholder="Width (Max <999)" type="text">
-    <input id="height-text-box" class="textbox" placeholder="Height (Max <999)" type="text">
-    <button class="set-default">Set To Default</button>
-    <h1 id="settings-button-label" class="settings-label">Settings Button Size</h1>
-</div>
-`;
-document.body.appendChild(dialogModal);
-
-let settingsModal = document.querySelector("#settings-modal");
-
-function closeSettings() {
-    
-    sessionStorage.setItem("settingsopen","false");
-    settingsModal.classList.remove("scaleup");
-    settingsModal.classList.remove("fadein");
-    settingsModal
-
-    setTimeout(() => {
-       dialogModal.close();
-    }, 200);
-
-    document.body.classList.remove("set-scrollbar-toggle");
-}
-
-function openSettings() {
-    sessionStorage.setItem("settingsopen","true");
-    dialogModal.showModal();
-    
-    document.querySelector("#settings-modal").classList.add("scaleup");
-    document.querySelector("#settings-modal").classList.add("fadein");
-     
-    document.body.classList.add("set-scrollbar-toggle");
-}
-function settingsToggle() {
-    if (sessionStorage.getItem("settingsopen") == String(true)) {
-        closeSettings();
-    } else if (sessionStorage.getItem("settingsopen") == String(false)) {
-        openSettings();
-    }
-}
-
-dialogModal.addEventListener(("click"), e => {
-    let dialogDimensions = document.querySelector("#settings-modal").getBoundingClientRect();
-    if (e.clientX < dialogDimensions.left || e.clientX > dialogDimensions.right || e.clientY < dialogDimensions.top || e.clientY > dialogDimensions.bottom || e.target == document.querySelector("button#settings-close")) {
-        settingsToggle();
-    }
 })
 
-settingsButton.onclick = settingsToggle;
-
-chrome.runtime.onMessage.addListener(function (response, sendResponse) {
-    if (response.action == "toggle_settings") {
-        settingsToggle();
-        return true
-    }
-});
+if (darkModeState === String(false)) {
+    sunIcon.style.setProperty("display", "block");
+    moonIcon.style.setProperty("display", "none");
+} else if (darkModeState === String(true)) {
+    sunIcon.style.setProperty("display", "none");
+    moonIcon.style.setProperty("display", "block");
+    document.body.insertBefore(darkModeStyle, document.body.firstChild);
+    
+    console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 5px;")
+}    
