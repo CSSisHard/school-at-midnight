@@ -437,12 +437,6 @@ function toggleTheme() {
 
 themeSwitcher.onclick = toggleTheme
 
-document.addEventListener("keydown",(key) => {
-    if (key.ctrlKey && key.altKey && key.key == "t") {
-        toggleTheme();
-    }
-})
-
 if (darkModeState === String(false)) {
     sunIcon.style.setProperty("display", "block");
     moonIcon.style.setProperty("display", "none");
